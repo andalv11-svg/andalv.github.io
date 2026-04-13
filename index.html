@@ -8,6 +8,19 @@
   <script src="js/CETEI.js"></script>
   <script>
     let c = new CETEI();
+     let comportamientos = {
+    "tei": {
+      "head": function(e) {
+        let nivel = document.evaluate("count(ancestor::tei-div)", e, null, XPathResult.NUMBER_TYPE, null);
+        let resultado = document.createElement("h" + nivel.numberValue);
+        for (let n of Array.from(e.childNodes)) {
+          resultado.appendChild(n.cloneNode());
+        }
+        return resultado;
+      }    
+    }
+  };
+  c.addBehaviors(comportamientos);
     c.getHTML5('Ruy_Diaz-La_Argentina_Manuscrita.xml', function(data) {
     document.getElementsByTagName("body")[0].appendChild(data);
     });
